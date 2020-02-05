@@ -2,12 +2,13 @@ import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 
 import authConfig from '../../config/auth';
+import * as Error from '../util/Error';
 
 export default async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: 'Token não enviado.' });
+    return Error.Unauthorized(res, 'Token não enviado.');
   }
   const [, token] = authHeader.split(' ');
 
@@ -17,6 +18,6 @@ export default async (req, res, next) => {
 
     return next();
   } catch (error) {
-    return res.status(401).json({ error: 'Token inválido.' });
+    return Error.Unauthorized(res, 'Token inválido.');
   }
 };
