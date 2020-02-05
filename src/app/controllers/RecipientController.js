@@ -15,6 +15,7 @@ class RecipientController {
   }
 
   async update(req, res) {
+    console.log(req);
     const recipient = await Recipient.findByPk(req.body.id);
     if (req.body.name && req.body.name !== recipient.name) {
       return Error.BadRequest(res, 'Destinatário não está cadastrado.');
