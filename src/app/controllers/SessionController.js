@@ -16,7 +16,7 @@ class SessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return Error.BadRequest(res, 'Dados inválidos.' );
     }
 
     const { email, password } = req.body;
